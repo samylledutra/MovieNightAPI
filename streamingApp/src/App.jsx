@@ -3,15 +3,19 @@ import { discoverMovies, fetchGenres, searchMovies } from './api/tmdb';
 import MovieList from './components/MovieList';
 import Pagination from './components/Pagination';
 import Filters from './components/Filters';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import './App.css';
 
-const STREAMING_PROVIDERS = {
-  'Netflix': 8,
-  'Prime Video': 119,
-  'Max': 1899,
-};
 
 function App() {
+
+  const STREAMING_PROVIDERS = {
+    'Netflix': 8,
+    'Prime Video': 119,
+    'Max': 1899,
+  };
+
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -86,7 +90,7 @@ function App() {
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
-  
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setActiveSearchTerm(searchTerm);
@@ -95,31 +99,25 @@ function App() {
 
   return (
     <section className="App">
-      <header>
-        <nav>
-          {Object.keys(STREAMING_PROVIDERS).map((providerName) => (
-            <button
-              key={providerName}
-              onClick={() => handleProviderChange(providerName)}
-              className={selectedProvider === providerName && !activeSearchTerm ? 'active' : ''}
-              disabled={!!activeSearchTerm} // Desabilita enquanto busca
-            >
-              {providerName}
-            </button>
-          ))}
-        </nav>
-      </header>
-      
-      <Filters
-        searchTerm={searchTerm}
-        onSearchChange={handleSearchChange}
-        onSearchSubmit={handleSearchSubmit}
-        genres={genres}
-        selectedGenre={selectedGenre}
-        onGenreChange={handleGenreChange}
-      />
+      <div className="sticky-container">
+         <Filters
+          searchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+          onSearchSubmit={handleSearchSubmit}
+          genres={genres}
+          selectedGenre={selectedGenre}
+          onGenreChange={handleGenreChange}
+        />
+        <Header
+          selectedProvider={selectedProvider}
+          activeSearchTerm={activeSearchTerm}
+          onProviderChange={handleProviderChange}
+          streamingProviders={STREAMING_PROVIDERS}
 
-      <main>
+        />
+       
+      </div>
+      <main className="mainContent">
         {loading && <p>Carregando filmes...</p>}
         {error && <p className="error">{error}</p>}
         {!loading && !error && movies.length > 0 && (
@@ -135,13 +133,11 @@ function App() {
         {!loading && !error && movies.length === 0 && (
           <p>Nenhum filme encontrado com os critérios selecionados.</p>
         )}
+
+
       </main>
 
-        <footer className="app-footer">
-        <p>
-          This product uses the TMDb API but is not endorsed or certified by TMDb.
-        </p>
-      </footer>
+      <Footer />
 
     </section>
   );

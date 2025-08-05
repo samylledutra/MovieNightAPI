@@ -5,36 +5,34 @@
 }
 
 .App {
-  position: relative;
   margin: 0 auto;
-  padding: 20px;
-  z-index: 1;
+
 }
 
 
-.App::before {
-  content: '';
-  position: absolute;
+.sticky-container {
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('/backgroundImage.png');
+  z-index: 100;
+
+  padding: 20px 0;
+  background-image:
+    linear-gradient(rgba(28, 28, 28, 0.85), rgba(28, 28, 28, 0.85)),
+    url('/backgroundImageLogo.png');
+
   background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  filter: brightness(0.4);
-  z-index: -1;
+  background-position: top;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-
+/*
 header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 header nav {
-  margin-top: 22rem;
+  margin-top: 0;
 }
 
 header nav button {
@@ -57,11 +55,88 @@ header nav button.active {
   background-color: #750031;
   border-color: #711a3f;
 }
+*/
+
+/* Container para o label e o select */
+.provider-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Espaço entre o texto e o dropdown */
+}
+
+/* Estilo para o texto "Plataforma:" */
+.provider-navigation label {
+  font-size: 1.1rem;
+  color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Estilo principal do dropdown */
+.provider-select {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 200px;
+  transition: background-color 0.3s, border-color 0.3s;
+  
+  /* Melhora a aparência em alguns navegadores */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.4-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  background-size: .65em auto;
+}
+
+.provider-select:hover {
+  background-color: #444;
+  border-color: #777;
+}
+
+.provider-select:disabled {
+  background-color: #222;
+  color: #444;
+  cursor: not-allowed;
+  border-color: #333;
+  opacity: 0.7;
+}
+
+
+.App {
+  position: relative;
+  z-index: 1;
+}
+
+.App::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: url('/backgroundImage.png');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  filter: brightness(0.4);
+  z-index: -1;
+
+
+  border-radius: 8px;
+}
 
 .movie-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  padding: 20px;
 }
 
 .movie-card {
@@ -153,7 +228,6 @@ header nav button.active {
   gap: 20px;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 40px;
 }
 
 
@@ -211,7 +285,7 @@ nav button:disabled {
 }
 
 .app-footer p {
-  font-size: 0.75rem; 
+  font-size: 0.75rem;
   color: #ccc;
   margin: 0;
 }
@@ -230,7 +304,7 @@ nav button:disabled {
     display: flex;
     gap: 10px;
     padding: 20px;
-    flex-direction: column;
+    
 
   }
 
